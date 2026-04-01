@@ -148,8 +148,8 @@ export default function App() {
                 return (
                   <div key={key} onClick={()=>openDay(d)} style={{
                     borderRadius:10, padding:"6px 4px", cursor:"pointer", minHeight:52,
-                    background: isSelected?"#1a1a1a": isToday?"#f0ede8":"#fafafa",
-                    border: isToday&&!isSelected?"1.5px solid #ddd":"1.5px solid transparent",
+                    background: isSelected?"#1a1a1a": entry?.platform ? PLATFORMS.find(p=>p.name===entry.platform)?.color+"22" : isToday?"#f0ede8":"#fafafa",
+                    border: isSelected?"1.5px solid transparent" : entry?.platform ? `1.5px solid ${PLATFORMS.find(p=>p.name===entry.platform)?.color}44` : isToday?"1.5px solid #ddd":"1.5px solid transparent",
                     transition:"background 0.15s",
                   }}>
                     <div style={{ fontSize:11, fontWeight:600, color:isSelected?"#fff":isToday?"#1a1a1a":"#444", textAlign:"center" }}>{d}</div>
