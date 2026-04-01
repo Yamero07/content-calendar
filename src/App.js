@@ -4,6 +4,12 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const STATUSES = ["Draft", "Doing", "Done"];
 const STATUS_COLORS = { Draft: "#a0a0a0", Doing: "#f0a500", Done: "#4caf87" };
+const PLATFORMS = [
+  { name: "Facebook", color: "#1877F2", emoji: "📘" },
+  { name: "TikTok", color: "#010101", emoji: "🎵" },
+  { name: "Instagram", color: "#E1306C", emoji: "📸" },
+  { name: "YouTube", color: "#FF0000", emoji: "▶️" },
+];
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -25,7 +31,7 @@ export default function App() {
   const [month, setMonth] = useState(today.getMonth());
   const [data, setData] = useState({});
   const [selected, setSelected] = useState(null);
-  const [editForm, setEditForm] = useState({ idea: "", status: "Draft", notes: "" });
+  const [editForm, setEditForm] = useState({ idea: "", status: "Draft", notes: "", platform: "" });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -222,6 +228,18 @@ export default function App() {
                     background:editForm.status===s?STATUS_COLORS[s]:"#f4f4f4",
                     color:editForm.status===s?"#fff":"#666", transition:"all 0.15s"
                   }}>{s}</button>
+                ))}
+              </div>
+
+              <label style={labelStyle}>📱 Platform</label>
+              <div style={{ display:"flex", gap:8, marginBottom:14, flexWrap:"wrap" }}>
+                {PLATFORMS.map(p=>(
+                  <button key={p.name} onClick={()=>setEditForm(f=>({...f, platform: f.platform===p.name ? "" : p.name}))} style={{
+                    flex:"1 1 80px", padding:"7px 0", borderRadius:8, border:"none", cursor:"pointer", fontSize:12, fontWeight:600,
+                    background: editForm.platform===p.name ? p.color : "#f4f4f4",
+                    color: editForm.platform===p.name ? "#fff" : "#666",
+                    transition:"all 0.15s"
+                  }}>{p.emoji} {p.name}</button>
                 ))}
               </div>
 
